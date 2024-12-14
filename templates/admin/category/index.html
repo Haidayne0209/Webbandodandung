@@ -1,0 +1,90 @@
+{% extends 'admin/layout.html' %}
+
+{% block content_admin %}
+    <div class="row">
+        <div class="col-12">
+            <div class="page-title-box">
+                <div class="page-title-right">
+                    <ol class="breadcrumb m-0">
+                        <li class="breadcrumb-item">
+                            <a href="/Admin">Trang chủ</a>
+                        </li>
+                        <li class="breadcrumb-item active">Quản lý loại sản phẩm</li>
+                    </ol>
+                </div>
+                <h4 class="page-title">Loại sản phẩm</h4>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-centered table-striped dt-responsive nowrap w-100"
+                               id="cate-datatable">
+                            <thead>
+                            <tr>
+                                <th style="width: 100px;">STT</th>
+                                <th>Tên loại</th>
+                                <th>Trạng thái</th>
+                                <th style="width: 75px;">#</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for item in data %}
+                                <tr>
+                                    <td>
+                                        {{ loop.index }}
+                                    </td>
+                                    <td class="table-user">
+                                        <a href="javascript:void(0);"
+                                           class="text-body fw-semibold">{{ item.name }}</a>
+                                    </td>
+                                    <td>
+                                        <span class="badge bage-cate text-dark">
+                                        {{ item.status }}
+                                        </span>
+                                    </td>
+
+                                    <td>
+                                        <a href="/admin/category/edit?id={{ item.category_id }}" class="action-icon"
+                                           title="Sửa">
+                                            <i class="uil-pen text-danger"></i>
+                                        </a>
+                                        <a href="javascript:void(0)" class="action-icon"
+                                           onclick="remove({{ item.category_id }})"
+                                           title="Xóa">
+                                            <i class="uil-trash-alt"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div> <!-- end card-body-->
+            </div> <!-- end card-->
+        </div> <!-- end col -->
+    </div>
+    <script>
+        function remove(id) {
+            if (confirm('Bạn có chắc chắn muốn xóa loại sản phẩm này không?')) {
+                fetch('/admin/category/delete/' + id)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            showToast('Xóa thành công', 'success')
+                            setTimeout(() => {
+                                window.location.reload()
+                            }, 1000)
+                        } else {
+                            showToast('Xóa thất bại', 'error')
+                        }
+                    })
+            }
+        }
+    </script>
+{% endblock %}
+

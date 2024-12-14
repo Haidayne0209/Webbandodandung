@@ -1,0 +1,273 @@
+{% extends 'client/layout.html' %}
+{% block content %}
+
+    <div class="bg-light">
+        <div class="container py-4">
+            <div class="row">
+                <div class="col-sm">
+                    <h4 class="mb-0">Danh sách sản phẩm</h4>
+                </div>
+                <!-- End Col -->
+            </div>
+            <!-- End Row -->
+        </div>
+    </div>
+
+    <div class="container content-space-t-1 content-space-b-2 content-space-b-lg-3">
+        <div class="row">
+            <div class="col-lg-3">
+                <!-- Navbar -->
+                <div class="navbar-expand-lg mb-5">
+                    <!-- Navbar Toggle -->
+                    <div class="d-grid">
+                        <button type="button" class="navbar-toggler btn btn-white mb-3"
+                                data-bs-toggle="collapse"
+                                data-bs-target="#navbarVerticalNavMenu" aria-label="Toggle navigation"
+                                aria-expanded="false" aria-controls="navbarVerticalNavMenu">
+                        <span class="d-flex justify-content-between align-items-center">
+                            <span class="text-dark">Lọc</span>
+
+                            <span class="navbar-toggler-default">
+                                <i class="bi-list"></i>
+                            </span>
+
+                            <span class="navbar-toggler-toggled">
+                                <i class="bi-x"></i>
+                            </span>
+                        </span>
+                        </button>
+                    </div>
+                    <!-- End Navbar Toggle -->
+
+                    <!-- Navbar Collapse -->
+                    <div id="navbarVerticalNavMenu" class="collapse navbar-collapse">
+                        <div class="w-100">
+                            <!-- Form -->
+                            <form>
+                                <div class="border-bottom pb-2 mb-2">
+                                    <h5 class="">Tìm kiếm</h5>
+                                    <div class="d-grid">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <input type="text"
+                                                   id="text-search"
+                                                   value="{{ model.key }}"
+                                                   placeholder="Nhập sản phẩm bạn muốn tìm..."
+                                                   class="form-control mb-1" name="key"/>
+                                        </div>
+                                        <div>
+                                            <button type="button" class="btn btn-primary btn-sm w-100"
+                                                    onclick="filter()">Lọc
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="border-bottom pb-2 mb-2">
+                                    <h5>Loại sản phẩm</h5>
+                                    <div class="d-grid gap-2">
+                                        {% if model.cate_id == -1 %}
+                                            <div class="form-check" onclick="goToPage('-1')">
+                                                <input class="form-check-input 1" type="radio"
+                                                       checked="checked"
+                                                       value="-1"
+                                                       name="cate" id="cate">
+                                                <label class="form-check-label d-flex"
+                                                       for="cate">Tất cả<span class="ms-auto"></span>
+                                                </label>
+                                            </div>
+                                        {% else %}
+                                            <div class="form-check" onclick="goToPage('-1')">
+                                                <input class="form-check-input 12" type="radio"
+                                                       value="-1"
+                                                       name="cate" id="cate">
+                                                <label class="form-check-label d-flex"
+                                                       for="cate">Tất cả<span class="ms-auto"></span>
+                                                </label>
+                                            </div>
+                                        {% endif %}
+
+                                        {% for c in model.cate1 %}
+                                            <!-- Checkboxes -->
+                                            {% if model.cate_id == c.category_id %}
+                                                <div class="form-check" onclick="goToPage('{{ c.category_id }}')">
+                                                    <input class="form-check-input"
+                                                           type="radio"
+                                                           value="{{ c.category_id }}"
+                                                           name="cate"
+                                                           checked="checked"
+                                                           id="cate-{{ c.category_id }}">
+                                                    <label class="form-check-label d-flex"
+                                                           for="cate-{{ c.category_id }}">
+                                                        {{ c.name }} <span class="ms-auto"></span>
+                                                    </label>
+                                                </div>
+                                            {% else %}
+                                                <div class="form-check" onclick="goToPage('{{ c.category_id }}')">
+                                                    <input class="form-check-input"
+                                                           type="radio"
+                                                           value="{{ c.category_id }}"
+                                                           name="cate"
+                                                           id="cate-{{ c.category_id }}">
+                                                    <label class="form-check-label d-flex"
+                                                           for="cate-{{ c.category_id }}">
+                                                        {{ c.name }} <span class="ms-auto"></span>
+                                                    </label>
+                                                </div>
+                                            {% endif %}
+                                            <!-- End Checkboxes -->
+                                        {% endfor %}
+                                    </div>
+
+                                    <!-- View More - Collapse -->
+                                    <div class="collapse" id="collapseCategory">
+                                        <div class="d-grid gap-2">
+                                            {% for c in model.cate2 %}
+                                                {% if model.cate_id == c.category_id %}
+                                                    <div class="form-check" onclick="goToPage('{{ c.category_id }}')">
+                                                        <input class="form-check-input"
+                                                               type="radio"
+                                                               value="{{ c.category_id }}"
+                                                               name="cate"
+                                                               checked="checked"
+                                                               id="cate-{{ c.category_id }}">
+                                                        <label class="form-check-label d-flex"
+                                                               for="cate-{{ c.category_id }}">
+                                                            {{ c.name }} <span class="ms-auto"></span>
+                                                        </label>
+                                                    </div>
+                                                {% else %}
+                                                    <div class="form-check" onclick="goToPage('{{ c.category_id }}')">
+                                                        <input class="form-check-input"
+                                                               type="radio"
+                                                               value="{{ c.category_id }}"
+                                                               name="cate"
+                                                               id="cate-{{ c.category_id }}">
+                                                        <label class="form-check-label d-flex"
+                                                               for="cate-{{ c.category_id }}">
+                                                            {{ c.name }} <span class="ms-auto"></span>
+                                                        </label>
+                                                    </div>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                    <!-- End View More - Collapse -->
+
+                                    <!-- Link -->
+                                    <a class="link-sm link-collapse" href="#collapseCategory" role="button"
+                                       data-bs-toggle="collapse" aria-expanded="false" aria-controls="collapseCategory">
+                                        <span class="link-collapse-default">Xem thêm</span>
+                                        <span class="link-collapse-active">Rút gọn</span>
+                                    </a>
+                                    <!-- End Link -->
+                                </div>
+                            </form>
+                            <!-- End Form -->
+                        </div>
+                    </div>
+                    <!-- End Navbar Collapse -->
+                </div>
+                <!-- End Navbar -->
+            </div>
+            <!-- End Col -->
+
+            <div class="col-lg-9">
+                <div class="row align-items-center mb-5">
+                    <div class="col-sm mb-3 mb-sm-0 ps-10">
+                        <h6 class="mb-0">{{ model.total_product }} sản phẩm</h6>
+                    </div>
+
+                    <div class="col-sm-auto">
+                        <div class="d-sm-flex justify-content-sm-end align-items-center">
+                            <!-- Select -->
+                            <div class="mb-2 mb-sm-0 me-sm-2">
+                                <select class="form-select form-select-sm" onchange="sort(this)">
+                                    <option value="ACS">A-to-Z</option>
+                                    <option value="DESC">Z-to-A</option>
+                                    <option value="pASC">Giá thấp tới cao</option>
+                                    <option value="pDESC">Giá cao tới thấp</option>
+                                </select>
+                            </div>
+                            <!-- End Select -->
+
+                            <!-- Nav -->
+                            <ul class="nav nav-segment d-none">
+                                <li class="nav-item">
+                                    <a class="nav-link active" href="javascript:void(0)">
+                                        <i class="bi-grid-fill"></i>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="javascript:void(0)">
+                                        <i class="bi-list"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                            <!-- End Nav -->
+                        </div>
+                    </div>
+                </div>
+                <!-- End Row -->
+
+                <div class="row row-cols-sm-2 row-cols-md-3 mb-10">
+                    {% if not model.data %}
+                        <div class="alert alert-secondary w-100 text-center" role="alert">
+                            Không tìm thấy sản phẩm
+                        </div>
+                    {% endif %}
+
+                    {% for card in model.data %}
+
+                        <div class="col mb-4">
+                            <!-- Card -->
+                            <div class="card card-bordered shadow-none text-center h-100">
+                                <div class="card-pinned">
+                                    <img class="card-img-top" src="{{ card.url }}" alt="HP Shop"
+                                         style="height: 250px;"/>
+
+                                    <div class="card-pinned-top-start">
+                                        <span class="badge bg-success rounded-pill">Mới</span>
+                                    </div>
+
+                                    <div class="card-pinned-top-end">
+                                        <button type="button"
+                                                class="btn btn-outline-secondary btn-xs btn-icon rounded-circle"
+                                                data-bs-toggle="tooltip" data-bs-placement="top" title="Save for later">
+                                            <i class="bi-heart"></i>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="card-body">
+                                    <div class="mb-2">
+                                        <a class="link-sm link-secondary"
+                                           href="/products/detail/{{ card.product_id }}">{{ card.cate.name }}</a>
+                                    </div>
+
+                                    <h4 class="card-title">
+                                        <a class="text-dark"
+                                           href="/products/detail/{{ card.product_id }}">
+                                            {{ card.name }}
+                                        </a>
+                                    </h4>
+                                    <p class="card-text text-dark">
+                                        <span class="text-success fw-bold">{{ card.price }} đ</span>
+                                    </p>
+                                </div>
+
+                                <div class="card-footer pt-0">
+                                    <a href="/cart/add?pid={{ card.product_id }}&q=1" type="button"
+                                       class="btn btn-outline-primary btn-sm rounded-pill">Thêm vào giỏ hàng</a>
+                                </div>
+                            </div>
+                            <!-- End Card -->
+                        </div>
+                        <!-- End Col -->
+                    {% endfor %}
+                </div>
+                <!-- End Row -->
+            </div>
+            <!-- End Col -->
+        </div>
+        <!-- End Row -->
+    </div>
+{% endblock %}

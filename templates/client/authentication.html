@@ -1,0 +1,167 @@
+<div class="modal fade" id="signupModal" tabindex="-1" role="dialog" aria-hidden="true" data-bs-backdrop="static"
+     data-bs-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <!-- Header -->
+            <div class="modal-close">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <!-- End Header -->
+            <!-- Body -->
+            <div class="modal-body">
+                <!-- Log in with Modal -->
+                <div id="signupModalFormLogin">
+                    <!-- Heading -->
+                    <div class="text-center mb-7">
+                        <h2>Đăng nhập</h2>
+                        <p>
+                            Bạn chưa có tài khoản?
+                            <a class="js-animation-link link" href="javascript:;" role="button"
+                               data-hs-show-animation-options='{
+                         "targetSelector": "#signupModalFormSignup",
+                         "groupName": "idForm"
+                       }'>Đăng ký</a>
+                        </p>
+                    </div>
+                    <!-- End Heading -->
+
+                    <form class="js-validate-login needs-validation" novalidate action="/auth/login" method="post">
+                        <!-- Form -->
+                        <div class="mb-3">
+                            <label class="form-label" for="signupModalFormLoginEmail">Email</label>
+                            <input type="email" class="form-control form-control-lg" name="email"
+                                   id="signupModalFormLoginEmail" placeholder="email@site.com"
+                                   aria-label="email@site.com" required>
+                            <span class="invalid-feedback">Email không hợp lệ.</span>
+                        </div>
+                        <!-- End Form -->
+                        <!-- Form -->
+                        <div class="mb-3">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <label class="form-label" for="signupModalFormLoginPassword">Mật khẩu</label>
+
+                                <a class="js-animation-link form-label-link" href="javascript:void(0)"
+                                   data-hs-show-animation-options='{
+                       "targetSelector": "#signupModalFormResetPassword",
+                       "groupName": "idForm"
+                     }'>Quên mật khẩu?</a>
+                            </div>
+
+                            <input type="password" class="form-control form-control-lg" name="password"
+                                   id="signupModalFormLoginPassword" placeholder="8+ ký tự bắt buộc"
+                                   aria-label="8+ characters required" required minlength="8">
+                            <span class="invalid-feedback">Mật khẩu không không đủ 8 ký tự.</span>
+                        </div>
+                        <!-- End Form -->
+
+                        <div class="d-grid mb-3">
+                            <button type="submit" class="btn btn-primary form-control-lg">Đăng nhập</button>
+                        </div>
+                    </form>
+                </div>
+                <!-- End Log in with Modal -->
+
+                <!-- Sign up with Modal -->
+                <div id="signupModalFormSignup" style="display: none; opacity: 0;">
+                    <!-- Heading -->
+                    <div class="text-center mb-7">
+                        <h2>Đăng nhập</h2>
+                        <p>
+                            Already have an account?
+                            <a class="js-animation-link link" href="javascript:;" role="button"
+                               data-hs-show-animation-options='{
+                         "targetSelector": "#signupModalFormLogin",
+                         "groupName": "idForm"
+                       }'>Đăng nhập</a>
+                        </p>
+                    </div>
+                    <!-- End Heading -->
+
+                    <form class="js-validate-register need-validate" novalidate action="/auth/register" method="post">
+                        <!-- Form -->
+                        <div class="mb-3">
+                            <label class="form-label" for="signupModalFormSignupEmail">Email</label>
+                            <input type="email" class="form-control form-control-lg" name="email"
+                                   id="signupModalFormSignupEmail" placeholder="email@site.com"
+                                   aria-label="email@site.com" required>
+                            <span class="invalid-feedback">Email không hợp lệ.</span>
+                        </div>
+                        <!-- End Form -->
+                        <!-- Form -->
+                        <div class="mb-3">
+                            <label class="form-label" for="signupModalFormSignupFullname">Họ và tên</label>
+                            <input type="text" class="form-control form-control-lg" name="fullname"
+                                   id="signupModalFormSignupFullname" placeholder="Họ và tên" required>
+                            <span class="invalid-feedback">Họ tên không được để trống.</span>
+                        </div>
+                        <!-- End Form -->
+                        <!-- Form -->
+                        <div class="mb-3">
+                            <label class="form-label" for="signupModalFormSignupPassword">Mật khẩu</label>
+                            <input type="password" class="form-control form-control-lg" name="password"
+                                   id="signupModalFormSignupPassword" placeholder="8+ characters required"
+                                   aria-label="8+ ký tự bắt buộc" required>
+                            <span class="invalid-feedback">Mật khẩu không đủ 8 ký tự.</span>
+                        </div>
+                        <!-- End Form -->
+                        <!-- Form -->
+                        <div class="mb-3" data-hs-validation-validate-class>
+                            <label class="form-label" for="signupModalFormSignupConfirmPassword">Xác nhận mật
+                                khẩu</label>
+                            <input type="password" class="form-control form-control-lg" name="confirmPassword"
+                                   id="signupModalFormSignupConfirmPassword" placeholder="8+ ký tự bắt buộc"
+                                   aria-label="8+ characters required" required
+                                   data-hs-validation-equal-field="#signupModalFormSignupPassword">
+                            <span class="invalid-feedback">Mật khẩu không khớp.</span>
+                        </div>
+                        <!-- End Form -->
+
+                        <div class="d-grid mb-3">
+                            <button type="submit" class="btn btn-primary form-control-lg">Đăng ký</button>
+                        </div>
+                    </form>
+                </div>
+                <!-- End Sign up with Modal -->
+                <!-- Reset Password -->
+                <div id="signupModalFormResetPassword" style="display: none; opacity: 0;">
+                    <!-- Heading -->
+                    <div class="text-center mb-7">
+                        <h2>Quên mật khẩu?</h2>
+                        <p>Nhập địa chỉ của bạn vào đây để được cấp lại mật khẩu mới.</p>
+                    </div>
+                    <!-- En dHeading -->
+
+                    <form class="js-validate-forget need-validate" novalidate action="/forget-password" method="post">
+                        <div class="mb-3">
+                            <!-- Form -->
+                            <div class="d-flex justify-content-between align-items-center">
+                                <label class="form-label" for="signupModalFormResetPasswordEmail" tabindex="0">Email của
+                                    bạn</label>
+
+                                <a class="js-animation-link form-label-link" href="javascript:;"
+                                   data-hs-show-animation-options='{
+                         "targetSelector": "#signupModalFormLogin",
+                         "groupName": "idForm"
+                       }'>
+                                    <i class="bi-chevron-left small"></i> Trở về đăng nhập
+                                </a>
+                            </div>
+
+                            <input type="email" class="form-control form-control-lg" name="email"
+                                   id="signupModalFormResetPasswordEmail" tabindex="1" placeholder="Nhập email của bạn"
+                                   aria-label="Nhập email của bạn" required>
+                            <span class="invalid-feedback">Email không hợp lệ.</span>
+                            <!-- End Form -->
+                        </div>
+
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary form-control-lg">Gửi</button>
+                        </div>
+                    </form>
+                </div>
+                <!-- End Reset Password -->
+            </div>
+            <!-- End Body -->
+        </div>
+    </div>
+</div>

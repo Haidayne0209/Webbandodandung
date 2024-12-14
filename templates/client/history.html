@@ -1,0 +1,258 @@
+{% extends 'client/layout.html' %}
+{% block content %}
+    <!-- Breadcrumb -->
+    <div class="navbar-dark bg-dark" style="background-image: url(/image/svg/wave-pattern-light.svg);">
+        <div class="container content-space-1 content-space-b-lg-3">
+            <div class="row align-items-center">
+                <div class="col">
+                    <div class="d-none d-lg-block">
+                        <h1 class="h2 text-white">Thông tin cá nhân</h1>
+                    </div>
+                </div>
+                <!-- End Col -->
+
+                <div class="col-auto">
+                    <!-- Responsive Toggle Button -->
+                    <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#sidebarNav" aria-controls="sidebarNav" aria-expanded="false"
+                            aria-label="Toggle navigation">
+                    <span class="navbar-toggler-default">
+                        <i class="bi-list"></i>
+                    </span>
+                        <span class="navbar-toggler-toggled">
+                        <i class="bi-x"></i>
+                    </span>
+                    </button>
+                    <!-- End Responsive Toggle Button -->
+                </div>
+                <!-- End Col -->
+            </div>
+            <!-- End Row -->
+        </div>
+    </div>
+    <!-- End Breadcrumb -->
+
+    <!-- Content Section -->
+    <div class="container content-space-1 content-space-t-lg-0 content-space-b-lg-2 mt-lg-n10">
+        <div class="row">
+            <div class="col-lg-3">
+                <!-- Navbar -->
+
+                <div class="navbar-expand-lg navbar-light">
+                    <div id="sidebarNav" class="collapse navbar-collapse navbar-vertical">
+                        <!-- Card -->
+                        <div class="card flex-grow-1 mb-5">
+                            <div class="card-body">
+                                <!-- Avatar -->
+                                <div class="d-none d-lg-block text-center mb-5">
+                                    <h4 class="card-title mb-0">{{ model.user.fullname }}</h4>
+                                    <p class="card-text small">{{ model.user.email }}</p>
+                                </div>
+                                <!-- End Avatar -->
+
+                                <!-- Nav -->
+                                <span class="text-cap">Tài khoản</span>
+
+                                <!-- List -->
+                                <ul class="nav nav-sm nav-tabs nav-vertical mb-4">
+                                    <li class="nav-item">
+                                        <a class="nav-link"
+                                           href="javascript:void(0)"
+                                           onclick="showAlert('Chức năng đang phát triển', 'warning')">
+                                            <i class="bi-person-badge nav-icon"></i> Thông tin cá nhân
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link " href="javascript:void(0)"
+                                           onclick="showAlert('Chức năng đang phát triển', 'warning')">
+                                            <i class="bi-shield-shaded nav-icon"></i> Bảo mật
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link " href="javascript:void(0)"
+                                           onclick="showAlert('Chức năng đang phát triển', 'warning')">
+                                            <i class="bi-bell nav-icon"></i> Thông báo
+                                            <span class="badge bg-soft-dark text-dark rounded-pill nav-link-badge">0</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link " href="javascript:void(0)"
+                                           onclick="showAlert('Chức năng đang phát triển', 'warning')">
+                                            <i class="bi-sliders nav-icon"></i> Cài đặt
+                                        </a>
+                                    </li>
+                                </ul>
+                                <!-- End List -->
+
+                                <span class="text-cap">Mua sắm</span>
+
+                                <!-- List -->
+                                <ul class="nav nav-sm nav-tabs nav-vertical mb-4">
+                                    <li class="nav-item">
+                                        <a class="nav-link active"
+                                           href="/">
+                                            <i class="bi-basket nav-icon"></i> Lịch sử đơn hàng
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link " href="javascript:void(0)"
+                                           onclick="showAlert('Chức năng đang phát triển', 'warning')">
+                                            <i class="bi-heart nav-icon"></i> Yêu thích
+                                            <span class="badge bg-soft-dark text-dark rounded-pill nav-link-badge">0</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <!-- End List -->
+
+                                <span class="text-cap">Hóa đơn</span>
+
+                                <!-- List -->
+                                <ul class="nav nav-sm nav-tabs nav-vertical">
+                                    <li class="nav-item">
+                                        <a class="nav-link " href="javascript:void(0)"
+                                           onclick="showAlert('Chức năng đang phát triển', 'warning')">
+                                            <i class="bi-credit-card nav-icon"></i> Phương thức thanh toán
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link " href="javascript:void(0)"
+                                           onclick="showAlert('Chức năng đang phát triển', 'warning')">
+                                            <i class="bi-geo-alt nav-icon"></i> Địa chỉ
+                                        </a>
+                                    </li>
+                                </ul>
+                                <!-- End List -->
+
+                                <div class="d-lg-none">
+                                    <div class="dropdown-divider"></div>
+
+                                    <!-- List -->
+                                    <ul class="nav nav-sm nav-tabs nav-vertical">
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="/user/logout">
+                                                <i class="bi-box-arrow-right nav-icon"></i> Đăng xuất
+                                            </a>
+                                        </li>
+                                    </ul>
+                                    <!-- End List -->
+                                </div>
+                                <!-- End Nav -->
+                            </div>
+                        </div>
+                        <!-- End Card -->
+                    </div>
+                </div>
+                <!-- End Navbar -->
+            </div>
+            <!-- End Col -->
+
+            <div class="col-lg-9">
+                <!-- Card -->
+                <div class="card">
+                    <!-- Header -->
+                    <div class="card-header border-bottom">
+                        <h4 class="card-header-title">Các đơn hàng đã mua</h4>
+                    </div>
+                    <!-- End Header -->
+
+                    <!-- Body -->
+                    <div class="card-body">
+                        <!-- Nav Scroller -->
+                        <div class="js-nav-scroller hs-nav-scroller-horizontal">
+                            <!-- Nav -->
+                            <ul class="nav nav-segment nav-fill mb-7" id="featuresTab" role="tablist">
+                                <li class="nav-item" role="presentation">
+                                    <a class="nav-link active" href="#pendingTab" id="pendingTab-tab"
+                                       data-bs-toggle="tab" data-bs-target="#pendingTab" role="tab"
+                                       aria-controls="pendingTab"
+                                       aria-selected="false">
+                                        Đang chờ xác nhận
+                                    </a>
+                                </li>
+
+                                <li class="nav-item" role="presentation">
+                                    <a class="nav-link " href="#shippingTab" id="shippingTab-tab"
+                                       data-bs-toggle="tab" data-bs-target="#shippingTab" role="tab"
+                                       aria-controls="shippingTab"
+                                       aria-selected="false">
+                                        Đang chờ giao hàng
+                                    </a>
+                                </li>
+
+                                <li class="nav-item" role="presentation">
+                                    <a class="nav-link " href="#doneTab" id="doneTab-tab"
+                                       data-bs-toggle="tab" data-bs-target="#doneTab" role="tab"
+                                       aria-controls="doneTab" aria-selected="true">
+                                        Hoàn thành
+                                    </a>
+                                </li>
+
+                                <li class="nav-item" role="presentation">
+                                    <a class="nav-link" href="#cancelTab" id="cancelTab-tab"
+                                       data-bs-toggle="tab" data-bs-target="#cancelTab" role="tab"
+                                       aria-controls="cancelTab" aria-selected="false">
+                                        Đơn hủy
+                                    </a>
+                                </li>
+                            </ul>
+                            <!-- End Nav -->
+                        </div>
+                        <!-- End Nav Scroller -->
+
+                        <!-- Tab Content -->
+                        <div class="tab-content" id="accountOrdersTabContent">
+                            <div class="tab-pane fade show active" id="pendingTab" role="tabpanel"
+                                 aria-labelledby="pendingTab-tab">
+                                <!-- Empty State -->
+                                {% if model.list_wait %}
+                                    {% include 'client/common/list_pending.html' %}
+                                {% else %}
+                                    {% include 'client/common/empty_order.html' %}
+                                {% endif %}
+                            </div>
+
+                            <div class="tab-pane fade" id="shippingTab" role="tabpanel"
+                                 aria-labelledby="shippingTab-tab">
+                                <!-- Empty State -->
+                                {% if model.list_shipping %}
+                                    {% include 'client/common/list_shipping.html' %}
+                                {% else %}
+                                    {% include 'client/common/empty_order.html' %}
+                                {% endif %}
+                                <!-- End Empty State -->
+                            </div>
+
+                            <div class="tab-pane fade" id="doneTab" role="tabpanel"
+                                 aria-labelledby="doneTab-tab">
+                                <!-- Empty State -->
+                                {% if model.list_done %}
+                                    {% include 'client/common/list_order.html' %}
+                                {% else %}
+                                    {% include 'client/common/empty_order.html' %}
+                                {% endif %}
+                                <!-- End Empty State -->
+                            </div>
+
+                            <div class="tab-pane fade" id="cancelTab" role="tabpanel"
+                                 aria-labelledby="cancelTab-tab">
+                                <!-- Empty State -->
+                                {% if model.list_cancel %}
+                                    {% include 'client/common/list_cancel.html' %}
+                                {% else %}
+                                    {% include 'client/common/empty_order.html' %}
+                                {% endif %}
+                                <!-- End Empty State -->
+                            </div>
+                        </div>
+                        <!-- End Tab Content -->
+                    </div>
+                    <!-- End Body -->
+                </div>
+                <!-- End Card -->
+            </div>
+            <!-- End Col -->
+        </div>
+        <!-- End Row -->
+    </div>
+    <!-- End Content Section -->
+{% endblock %}

@@ -1,0 +1,82 @@
+{% extends 'admin/layout.html' %}
+{% block content_admin %}
+    <div class="row">
+        <div class="col-12">
+            <div class="page-title-box">
+                <div class="page-title-right">
+                    <ol class="breadcrumb m-0">
+                        <li class="breadcrumb-item">
+                            <a href="/Admin">Trang chủ</a>
+                        </li>
+                        <li class="breadcrumb-item active">Quản lý người dùng</li>
+                    </ol>
+                </div>
+                <h4 class="page-title">Người dùng</h4>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-centered table-striped dt-responsive nowrap w-100"
+                               id="account-datatable">
+                            <thead>
+                            <tr>
+                                <th style="width: 100px;">STT</th>
+                                <th>Họ và tên</th>
+                                <th>Email đăng nhập</th>
+                                <th>SDT</th>
+                                <th>Địa chỉ</th>
+                                <th>Trạng thái tài khoản</th>
+                                <th style="width: 75px;">#</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for item in data %}
+                                <tr>
+                                    <td>
+                                        {{ loop.index }}
+                                    </td>
+                                    <td class="table-user">
+                                        <a href="javascript:void(0);"
+                                           class="text-body fw-semibold">{{ item.fullname }}</a>
+                                    </td>
+                                    <td>
+                                        {{ item.email }}
+                                    </td>
+                                    <td>
+                                        {{ item.phone }}
+                                    </td>
+                                    <td>
+                                        {{ item.address }}
+                                    </td>
+                                    <td>
+                                        <span class="badge badge-@css-lighten bage-user text-dark">
+                                        {{ item.status }}
+                                        </span>
+                                    </td>
+
+                                    <td>
+                                        <a href="/admin/account/lock?id={{ item.user_id }}" class="action-icon"
+                                           title="Khóa">
+                                            <i class="uil-padlock text-danger"></i>
+                                        </a>
+                                        <a href="/admin/account/unblock?id={{ item.user_id }}" class="action-icon"
+                                           title="Mở khóa">
+                                            <i class="uil-lock-open-alt"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div> <!-- end card-body-->
+            </div> <!-- end card-->
+        </div> <!-- end col -->
+    </div>
+{% endblock %}
+

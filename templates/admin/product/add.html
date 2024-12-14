@@ -1,0 +1,100 @@
+{% extends 'admin/layout.html' %}
+
+{% block content_admin %}
+    <script src="https://cdn.ckeditor.com/ckeditor5/41.3.1/super-build/ckeditor.js"></script>
+    <form id="product-add-form">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <!-- end card-body -->
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-xl-6">
+                                <div class="mb-3">
+                                    <label for="name-product" class="form-label">Tên</label>
+                                    <input id="name-product" type="text" class="form-control"
+                                           required
+                                           placeholder="Nhập tên loại" name="name">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="cate-drop" class="form-label">Loại sản phẩm</label>
+                                    <select name="cate" id="cate-drop" class="form-select">
+                                        <option value="" disabled>Chọn loại sản phẩm</option>
+                                        {% for item in model %}
+                                            <option value="{{ item.category_id }}">{{ item.name }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div> <!-- end col-->
+
+                            <div class="col-xl-6">
+                                <div class="mb-3">
+                                    <label class="form-label" for="price">Giá</label>
+                                    <input id="price" class="form-control"
+                                           type="number" name="price" min="0"
+                                           required
+                                           max="999999999999">
+                                </div>
+                            </div> <!-- end col-->
+                            <div class="col-xl-6">
+                                <div class="mb-3">
+                                    <label for="editor" class="form-label">Mô tả</label>
+                                    <textarea name="description" id="editor"
+                                              cols="30" rows="10"></textarea>
+                                </div>
+                            </div> <!-- end col-->
+                            <div class="col-xl-6">
+                            </div>
+                            <div class="col-xl-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Ảnh</label>
+                                    <input type="file" class="form-control" name="img" placeholder="Chọn ảnh"
+                                           id="file-upload"/>
+                                </div>
+                            </div> <!-- end col-->
+
+                            <div class="col-xl-6" id="uploadPreviewTemplate"></div>
+                        </div>
+                        <button class="btn btn-sm btn-primary mt-2" type="button" onclick="addProduct()">Thêm</button>
+                        <!-- end row -->
+                    </div>
+                </div> <!-- end card-->
+            </div> <!-- end col-->
+        </div>
+    </form>
+    <script src="{{ url_for('static', filename='scripts/admin/product.add.js') }}"></script>
+    <script>
+        const form = document.getElementById('product-add-form');
+
+        function addProduct() {
+            if (!form.checkValidity()) {
+                showToast('Vui lòng nhập đầy đủ thông tin', 'error');
+                return;
+            }
+            const formData = new FormData(form);
+            formData.append('description', myEditor.getData());
+            // get link image as base64
+            const file = document.getElementById('file-upload').files[0];
+            const reader = new FileReader();
+            reader.onloadend = function () {
+                formData.append('url', reader.result);
+                fetch('/admin/product/do-add', {
+                    method: 'POST',
+                    body: formData
+                }).then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            showToast('Thêm thành công', 'success');
+                            setTimeout(() => {
+                                window.location.reload();
+                            }, 1000);
+                        } else {
+                            showToast('Thêm thất bại', 'error')
+                        }
+                    });
+            }
+            reader.readAsDataURL(file);
+        }
+    </script>
+{% endblock %}
+

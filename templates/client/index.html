@@ -1,0 +1,56 @@
+{% extends 'client/layout.html' %}
+{% block content %}
+
+    {% include 'client/common/hero.html' %}
+    <div class="container content-space-2 content-space-lg-3">
+        <!-- Title -->
+        <div class="w-md-75 w-lg-50 text-center mx-md-auto mb-5 mb-md-9">
+            <h2>Sản phẩm nổi bật</h2>
+        </div>
+        <!-- End Title -->
+
+        <div class="row row-cols-sm-2 row-cols-md-3 row-cols-lg-4 mb-3">
+
+            {% for card in data %}
+                <div class="col mb-4">
+                    <!-- Card -->
+                    <div class="card card-bordered shadow-none text-center h-100">
+                        <div class="card-pinned">
+                            <img class="card-img-top" src="{{ card.url }}" style="height: 300px;"
+                                 alt="Image Description">
+
+                            <div class="card-pinned-top-end">
+                                <button type="button" class="btn btn-outline-secondary btn-xs btn-icon rounded-circle"
+                                        data-bs-toggle="tooltip" data-bs-placement="top" title="Save for later">
+                                    <i class="bi-heart"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="card-body">
+                            <div class="mb-1">
+                                <a class="link-sm link-secondary"
+                                   href="/products?cate={{ card.category_id }}">{{ card.cate.name }}</a>
+                            </div>
+                            <a class="text-body" href="/products/detail/{{ card.product_id }}">{{ card.name }}</a>
+                            <p class="card-text text-dark fs-4">Giá: {{ card.price }} VND</p>
+                        </div>
+
+                        <div class="card-footer pt-0">
+                            <a href="/cart/add?pid={{ card.product_id }}&q=1"
+                               class="btn btn-outline-primary btn-sm rounded-pill">
+                                Thêm vào giỏ hàng
+                            </a>
+                        </div>
+                    </div>
+                    <!-- End Card -->
+                </div>
+                <!-- End Col -->
+            {% endfor %}
+        </div>
+        <!-- End Row -->
+        <div class="text-center">
+            <a class="btn btn-outline-primary btn-transition rounded-pill" href="/products/">Xem tất cả sản phẩm</a>
+        </div>
+    </div>
+{% endblock %}

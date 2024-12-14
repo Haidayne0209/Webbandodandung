@@ -1,0 +1,44 @@
+<ul class="list-unstyled mb-5">
+    {% for item in model.list_done %}
+        <!-- Card -->
+        <li class="card card-bordered shadow-none mb-3">
+
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-6 col-md mb-3 mb-md-0">
+                        <small class="card-subtitle mb-0">Tổng tiền</small>
+                        <small class="text-dark fw-semi-bold">{{ item.total }} đ</small>
+                    </div>
+                    <!-- End Col -->
+
+                    <div class="col-6 col-md mb-3 mb-md-0">
+                        <small class="card-subtitle mb-0">SĐT: {{ item.phone }}</small>
+                        <small class="text-dark fw-semi-bold">Tên: {{ item.full_name }}</small>
+                    </div>
+                    <!-- End Col -->
+
+                    <div class="col-6 col-md">
+                        <small class="card-subtitle mb-0">{{ item.payment }}</small>
+                        <small class="text-dark fw-semi-bold">{{ item.email }}</small>
+                    </div>
+                    <!-- End Col -->
+
+                    <div class="col-6 col-md">
+                        <small class="card-subtitle mb-0">Ngày:</small>
+                        <small class="text-dark fw-semi-bold">{{ item.created_at }}</small>
+                    </div>
+                    <!-- End Col -->
+                </div>
+                <!-- End Row -->
+                <hr>
+
+                <div class="row">
+                    <div class="col-md-8">
+                        <h5>{{ item.status }}</h5>
+                    </div>
+                </div>
+            </div>
+        </li>
+        <!-- End Card -->
+    {% endfor %}
+</ul>

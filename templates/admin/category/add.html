@@ -1,0 +1,45 @@
+{% extends 'admin/layout.html' %}
+
+{% block content_admin %}
+    <form id="cate-add-form">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <!-- end card-body -->
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-xl-6">
+                                <div class="mb-3">
+                                    <label class="form-label" for="cate-name">Mô tả</label>
+                                    <input type="text" class="form-control" placeholder="Nhập tên loại.."
+                                           name="cate_name"
+                                           id="cate-name"/>
+                                </div>
+                            </div> <!-- end col-->
+                        </div>
+                        <button class="btn btn-sm btn-primary">Thêm</button>
+                        <!-- end row -->
+                    </div>
+                </div> <!-- end card-->
+            </div> <!-- end col-->
+        </div>
+    </form>
+    <script>
+        const form = document.getElementById('cate-add-form');
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(form);
+            const response = await fetch('/admin/category/do-add', {
+                method: 'POST',
+                body: formData
+            });
+            const data = await response.json();
+            if (data.success) {
+                showToast('Thêm thành công', 'success')
+            } else {
+                showToast('Thêm thất bại', 'error')
+            }
+        });
+    </script>
+{% endblock %}
+

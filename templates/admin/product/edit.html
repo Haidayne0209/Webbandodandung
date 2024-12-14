@@ -1,0 +1,142 @@
+{% extends 'admin/layout.html' %}
+
+{% block content_admin %}
+    <script src="https://cdn.ckeditor.com/ckeditor5/41.3.1/super-build/ckeditor.js"></script>
+    <form id="product-edit-form">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <!-- end card-body -->
+                    <div class="card-body">
+                        <div class="row">
+                            <input type="hidden" name="product_id" value="{{ p.product_id }}">
+                            <div class="col-xl-6">
+                                <div class="mb-3">
+                                    <label for="name-product" class="form-label">Tên</label>
+                                    <input id="name-product" type="text" class="form-control"
+                                           value="{{ p.name }}"
+                                           required
+                                           placeholder="Nhập tên loại" name="name">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="cate-drop" class="form-label">Loại sản phẩm</label>
+                                    <select name="cate" id="cate-drop" class="form-select">
+                                        <option value="" disabled>Chọn loại sản phẩm</option>
+                                        {% for item in cates %}
+                                            {% if item.category_id == p.category_id %}
+                                                <option value="{{ item.category_id }}" selected>{{ item.name }}</option>
+                                            {% else %}
+                                                <option value="{{ item.category_id }}">{{ item.name }}</option>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div> <!-- end col-->
+
+                            <div class="col-xl-6">
+                                <div class="mb-3">
+                                    <label class="form-label" for="price">Giá</label>
+                                    <input id="price" class="form-control"
+                                           type="number" name="price" min="0"
+                                           value="{{ p.price }}"
+                                           max="999999999999">
+                                </div>
+                            </div> <!-- end col-->
+                            <div class="col-xl-6">
+                                <div class="mb-3">
+                                    <label for="editor" class="form-label">Mô tả</label>
+                                    <textarea name="description" id="editor"
+                                              cols="30" rows="10"></textarea>
+                                </div>
+                            </div> <!-- end col-->
+                            <div class="col-xl-6">
+                            </div>
+                            <div class="col-xl-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Ảnh</label>
+                                    <input type="file" class="form-control" name="img" placeholder="Chọn ảnh"
+                                           id="file-upload"/>
+                                </div>
+                            </div> <!-- end col-->
+
+                            <div class="col-xl-6" id="uploadPreviewTemplate" onclick="test()"></div>
+                        </div>
+                        <button class="btn btn-sm btn-primary mt-2" type="button" onclick="editProduct()">Sửa</button>
+                        <!-- end row -->
+                    </div>
+                </div> <!-- end card-->
+            </div> <!-- end col-->
+        </div>
+    </form>
+    <script src="{{ url_for('static', filename='scripts/admin/product.update.js') }}"></script>
+    <script>
+        function render() {
+            preview.innerHTML = `
+                <div class="card mt-1 mb-0 shadow-none border">
+                    <div class="p-2">
+                        <div class="row align-items-center">
+                            <div class="col-auto">
+                                <img src="{{ p.url }}" class="avatar-sm rounded bg-light" alt="HP Shop">
+                            </div>
+                            <div class="col ps-0">
+                                <a href="javascript:void(0);" class="text-muted fw-bold">{{ p.name }}</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                `;
+
+            setTimeout(function () {
+                myEditor.setData(`{{ p.description }}`);
+            }, 1000);
+        }
+
+        render();
+        const form = document.getElementById('product-edit-form');
+
+        function test() {
+            console.log(myEditor.getData('text'))
+        }
+
+        function editProduct() {
+            if (!form.checkValidity()) {
+                showToast('Vui lòng nhập đầy đủ thông tin', 'error');
+                // in ra cac control khong hop le
+                console.log(form.querySelectorAll(':invalid'));
+                return;
+            }
+            const formData = new FormData(form);
+            formData.append('description', myEditor.getData('text'));
+            // get link image as base64
+            const file = document.getElementById('file-upload').files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onloadend = function () {
+                    formData.append('url', reader.result);
+                    sendRequest(formData);
+                }
+                reader.readAsDataURL(file);
+            } else {
+                sendRequest(formData);
+            }
+        }
+
+        function sendRequest(formData) {
+            fetch('/admin/product/do-update', {
+                method: 'POST',
+                body: formData
+            }).then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        showToast('Thêm thành công', 'success');
+                        setTimeout(() => {
+                            window.location.reload();
+                        }, 1000);
+                    } else {
+                        showToast('Thêm thất bại', 'error')
+                    }
+                });
+        }
+    </script>
+{% endblock %}
+
